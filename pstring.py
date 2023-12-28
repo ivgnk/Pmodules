@@ -78,7 +78,8 @@ def thetest_num_words_in_string():
     print(num_words_in_string('min1')) # 1
 
 # thetest_is_number_()
-thetest_num_words_in_string()
+if __name__ == "__main__":
+    thetest_num_words_in_string()
 
 
 
