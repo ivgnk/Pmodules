@@ -10,7 +10,8 @@ import numpy as np
 # https://habr.com/ru/articles/484136/
 import math
 from numba import njit
-import p1D_func_for_mininimizations as p1D
+import pprint as pp
+# import p1D_func_for_mininimizations as p1D
 
 @njit
 def find_min_max_in_2Dmatr_with_nan(a)->(float, int, int, float, int, int):
@@ -33,10 +34,10 @@ def find_min_max_in_2Dmatr_with_nan(a)->(float, int, int, float, int, int):
                     mmin = a[i,j]
     return mmin, imin, jmin, mmax, imax, jmax
 
-def thetest_find_min_max_in_2Dmatr_with_nan():
+def thetest_find_min_max_in_2Dmatr_with_nan(f):
     x0 = np.linspace(-2,2,801)
     x1 = np.linspace(-4,4,801)
-    x, y, z = p1D.for_eq016f(x0,x1)
+    x, y, z = f(x0,x1)
     print(z)
     mmin, imin, jmin, mmax, imax, jmax = find_min_max_in_2Dmatr_with_nan(z)
     print(f'{mmin=}  {imin=}  {jmin=}')
@@ -104,8 +105,14 @@ def thetest_add_dat_in_list():
     print(mylist[1])
     # mat = numpy.array(mylist)
 
+def thetest_logspace():
+    arr = np.logspace(1, 4, num=10, base = 5)
+    pp.pp(arr)
+
+
 if __name__ == "__main__":
-    thetest_find_min_max_in_2Dmatr_with_nan()
+    # thetest_find_min_max_in_2Dmatr_with_nan()
+    thetest_logspace()
 
 
 # test_findmax_arrindex1d()
