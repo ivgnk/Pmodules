@@ -39,12 +39,12 @@ def horiz_line_sin_cos():
 
     plt.show()
 
-def nperiod_fun(f:np.ufunc,x:np.ndarray, nper:float, is_view=False)->(np.ndarray):
+def nperiod_fun(f:np.ufunc,x:np.ndarray, nper:float, ampl:float, is_view=False)->(np.ndarray):
     num = len(x)
     x2 = x * np.pi / num * nper*2
-    y =f(x2)
+    y =ampl*f(x2)
     if is_view:
-        plt.title(f' {f.__name__} {nper} период(ов)')
+        plt.title(f' {f.__name__} {nper} период(ов), амплитуда = {ampl}')
         plt.plot(x, y)
         plt.grid()
         plt.show()
@@ -59,16 +59,17 @@ def thetest_nperiod_sin_cos(thefunc:str):
         titname = 'Синусы'; f = np.sin
     else:
         titname = 'Косинусы'; f = np.cos
+    ampl = 2
     plt.suptitle(titname)
     for i in [1,2,3,4]:
-        y = nperiod_fun(f,x,i)
+        y = nperiod_fun(f,x,i,ampl)
         plt.subplot(2,2,i)
-        plt.title(f'{i} Период(а)')
+        plt.title(f'{i} Период(а), амплитуда = {ampl}')
         plt.plot(x, y)
         plt.grid()
     plt.show()
 
-    nperiod_fun(f, x, 3, is_view = True)
+    nperiod_fun(f, x, 3, ampl=3, is_view = True)
     plt.show()
 
 def horiz_line_sin_cos2():
