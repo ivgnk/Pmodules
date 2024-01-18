@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 
 
 def horiz_line_sin_cos():
+    '''
+    Самый первый вариант тестирования синусов и косинусов
+    '''
     maxn = 100
     num = 101
     fig = plt.figure(figsize=(12,9))
@@ -72,10 +75,9 @@ def thetest_nperiod_sin_cos(thefunc:str):
     nperiod_fun(f, x, 3, ampl=3, is_view = True)
     plt.show()
 
-def horiz_line_sin_cos2():
-    pass
-
 
 if __name__ == "__main__":
-    thetest_nperiod_sin_cos('sin')
+    # thetest_nperiod_sin_cos('sin')
     # thetest_nperiod_sin_cos('cos')
+
+    horiz_line_sin_cos()
