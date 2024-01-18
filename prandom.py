@@ -20,12 +20,49 @@ def calc_descr_stat(x:np.ndarray):
 # 2 - uniform
 # 3 - normal / gauss
 # 4 - lognormal
-nrnd_type = 4
+nrnd_type = 3
+a_=0; b_=0 # коэффициенты прямой y = a+b*x
 
-def thetest1_random(rnd_type:int=1):
+def the_test_normal_graph():
+    n = 100
+    rng = np.random.default_rng(12345) #
+    x,y = linear_dat(n,a_, b_)
+    inid = 0.04
+    lst = [inid, inid*10, inid*100, inid*1000]
+    fig = plt.figure(figsize=(12,9))
+    plt.suptitle('normal / gauss')
+    for i,dat in enumerate(lst):
+        print(i)
+        plt.subplot(2,2,i+1)
+        col = ('r','#1f77b4')[i==1]
+        the_rnd_ = rng.normal(size=n, loc=0, scale=dat)
+        s0 = f'Sgm = {dat}'
+        s1 = f'Число N < 0 = {len(the_rnd_[the_rnd_<0])}' #    print(s1)
+        s2 = f'Число N > 0 = {len(the_rnd_[the_rnd_>0])}' #    print(s2)
+        # print(the_rnd_)
+        plt.title(s0+'    '+s1+'    '+s2)
+        plt.plot(x,the_rnd_, col)
+        plt.grid()
+    plt.show()
+
+def the_test_normal_num():
+    rng = np.random.default_rng(12345) #
+    ddat = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
+    ddat2 = reversed(ddat)
+    for i,x in enumerate(ddat2):
+        dat = np.logspace(start=0.1, stop=10, base=1+x)
+        # print(i,' ',len(dat))
+        print(f'\n {i=} {x=} {(1+x)=}')
+        print(dat)
+        plt.scatter(dat,i*5+dat,label = str(1+x))
+    plt.legend()
+    plt.grid()
+    plt.show()
+
+def thetest1_random(a_:float, b_:float, rnd_type:int=1):
     n = 100
     rng = np.random.default_rng(12345)
-    x,y = linear_dat(n,0.0,0.5)
+    x,y = linear_dat(n,a_, b_)
 
     low_ = -1; high_ = 1
     # (b - a) * random() + a
@@ -34,8 +71,12 @@ def thetest1_random(rnd_type:int=1):
             the_rnd_ = rng.random(size=n);            name_rnd = 'random'
         case 2:
             the_rnd_ = rng.uniform(size=n);           name_rnd = 'uniform'
-        case 3:
-            the_rnd_ = rng.normal(size=n);            name_rnd = 'normal / gauss'
+        case 3: # normal / gauss
+        # normal(loc=0.0, scale=1.0, size=None)
+        # loc : float or array_like of floats - Mean ("centre") of the distribution.
+        # scale : float or array_like of floats -  Standard deviation (spread or "width") of the distribution. Must be non-negative.
+            the_rnd_ = rng.normal(size=n, loc=0, scale=0.30);            name_rnd = 'normal / gauss'
+            print(the_rnd_)
         case 4:
             the_rnd_ = rng.lognormal(size=n);         name_rnd = 'log normal'
         case other:
@@ -69,4 +110,6 @@ def thetest1_random(rnd_type:int=1):
     plt.show()
 
 if __name__ == "__main__":
-    thetest1_random(nrnd_type)
+    # thetest1_random(a_, b_, nrnd_type)
+    # the_test_normal_graph() # Для разброса от -1 до 1 использовать Сигма (ст.откл) порядка 0.3
+    the_test_normal_num()

@@ -106,7 +106,10 @@ def thetest_add_dat_in_list():
     # mat = numpy.array(mylist)
 
 def thetest_logspace():
-    arr = np.logspace(1, 4, num=10, base = 5)
+    arr = np.logspace(1, 4, num=12, base = 5)
+    # array([  5.        ,   7.75529259,  12.02891263,  18.65754739,
+    #         28.93894779,  44.88600147,  69.6208149 , 107.98595796,
+    #        167.49253989, 259.79073064, 402.95062557, 625.        ])
     pp.pp(arr)
 
 
