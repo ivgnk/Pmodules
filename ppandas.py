@@ -23,7 +23,7 @@ def create_dframe_from_leeetcode(fname:str, is_view:bool=True) -> pd.DataFrame:
     df = pd.DataFrame(lst2)
     # https://vc.ru/u/1389654-machine-learning/752890-7-osnovnyh-sposobov-dlya-upravleniya-stolbcami-v-pandas
     df = df.rename(columns=dict(zip([i for i in range(ll)] ,col_names)))
-    print(df)
+    if is_view: print(df)
     return df
 
 if __name__ == "__main__":
