@@ -6,7 +6,32 @@
 # Released under GNU Public License (GPL)
 # email igenik@rambler.ru
 # ------------------------------
+
+
+vowel_low=['a', 'e', 'i', 'o', 'u']
+vowel_hgh=['A', 'E', 'I', 'O', 'U']
+a_all='abcdefghijklmnopqrstvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+a_low='abcdefghijklmnopqrstuvwxyz'
+a_hgh='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+a_num = '0123456789'
+a_low_rev='zyxwvutsrqponmlkjihgfedcba'
+a_low_circle='zyxwvutsrqponmlkjihgfedcbabcdefghijklmnopqrstuvwxyz'
+
+a_hgh_l=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U','V', 'W', 'X', 'Y', 'Z']
+
+lh_p=['aA', 'bB', 'cC', 'dD', 'eE', 'fF', 'gG', 'hH', 'iI', 'jJ', 'kK', 'lL', 'mM', 'nN', 'oO', 'pP', 'qQ', 'rR', 'sS', 'tT', 'uU', 'vV', 'wW', 'xX', 'yY', 'zZ']
+hl_p=['Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh', 'Ii', 'Jj', 'Kk', 'Ll', 'Mm', 'Nn', 'Oo', 'Pp', 'Qq', 'Rr', 'Ss', 'Tt', 'Uu', 'Vv', 'Ww', 'Xx', 'Yy', 'Zz']
+
 import re
+import inspect
+
+def make_pairs():
+    ll=len(a_low)
+    s1 = [a_low[i]+a_hgh[i] for i in range(ll)]
+    print(s1)
+    s2 = [a_hgh[i]+a_low[i] for i in range(ll)]
+    print(s2)
+    print(ord('A')-ord('a'), ord('a')-ord('A'))
 
 def print_string(the_list) -> None:
     print(len(the_list))
@@ -14,8 +39,11 @@ def print_string(the_list) -> None:
         print(stri, end=' ')
     print('+')
 
+def remove_letters(s:str)->str:
+    return ''.join([ss for ss in s if ss in '0123456789'])
+
 def num_words_in_string(s: str) -> int:
-    return len(re.split('\s+', s))
+    return len(re.split(r'\s+',s)) # ???
 
 def swlz(num:int, nposit:int) -> str: # строка с ведущими нулями
     """
@@ -77,11 +105,34 @@ def thetest_num_words_in_string():
     print(num_words_in_string('В  яме в  земле   жил   хоббит')) # 6
     print(num_words_in_string('min1')) # 1
 
+def thetest_remove_letters():
+    print('\nFunction', inspect.currentframe().f_code.co_name)
+    print(remove_letters('min1'))
+    print(remove_letters('win 13'))
+    print(remove_letters('2 win 13'))
+
+def the_test_new_split():
+    s= 'sss ddd ffgg.  .  gggg ggg'
+    s =' 7.5  6666 66.8888   ddd  dd ----   ' # 6
+    # https://docs.python.org/3/library/re.html
+    print(f'{s=}')
+    print()
+    print(r'\S+  ', re.split(r'\S+',s))
+    print(r'\s+',re.split(r'\s+',s))
+    print()
+    print(r'\W+  ', re.split(r'\W+',s))
+    print(r'(\W+)',re.split(r'(\W+)',s))
+    print(r'\w+  ',re.split(r'\w+',s))
+
+    print(f'{num_words_in_string(s)=}')
+
 # thetest_is_number_()
 if __name__ == "__main__":
-    thetest_num_words_in_string()
-
-
+    # thetest_num_words_in_string()
+    # thetest_remove_letters()
+    # the_test_new_split()
+    # make_pairs()
+    print(a_low[::-1])
 
 # Проработать строки и регулярные выражения
 # pythonist.ru/s/proverka-yavlyaetsya-li-stroka-palindromom/?utm_source=turbo_turbo
