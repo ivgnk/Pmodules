@@ -1,10 +1,11 @@
 # -------------------------------------------------------------------
 # Разные функции для работы с Numpy
 #
-# (C) 2020 Ivan Genik, Perm, Russia
+# (C) 2020-2024 Ivan Genik, Perm, Russia
 # Released under GNU Public License (GPL)
 # email igenik@rambler.ru
 # -------------------------------------------------------------------
+import inspect
 import numpy as np
 
 # https://habr.com/ru/articles/484136/
@@ -12,6 +13,62 @@ import math
 from numba import njit
 import pprint as pp
 # import p1D_func_for_mininimizations as p1D
+import matplotlib.pyplot as plt
+
+lst_tst = [1.850721193459193e-05 + 0j,
+        3.507267555276301e-05 - 4.257013639901627e-22j,
+        3.803508129483612e-05 - 1.2443768064756367e-22j,
+        3.829264588377769e-05 - 7.228876912647101e-22j,
+        3.5515357472102105e-05 - 1.0676814419742923e-22j,
+        3.3072437516413694e-05 + 2.0927650471641153e-22j,
+        3.0475905508923024e-05 + 2.4289364243446022e-23j]
+
+
+def tst_real_part():
+    a = np.array(lst_tst,dtype=complex)
+    print(a)
+    b=real_part(a)
+    print(b)
+
+def tst_cmodule():
+    a = np.array(lst_tst,dtype=complex)
+    print(f'{abs(a)=}')
+    print(f'{cmodule(a)=}')
+
+def real_part(x:np.ndarray)->np.ndarray:
+    ll=len(x)
+    z =np.array([dat.real for dat in x])
+    return z
+
+def cmodule(x:np.ndarray)->np.ndarray:
+    ll=len(x)
+    z =np.array([abs(dat) for dat in x])
+    return z
+
+
+def tst_splitting_array():
+    print('\nFunction', inspect.currentframe().f_code.co_name)
+    nnpnt=1400   # points
+    x=np.arange(nnpnt)
+    ini=np.random.rand(nnpnt)
+    n=10         # parts
+    sx=splitting_array(x,n)
+    si=splitting_array(ini,n)
+    fig = plt.figure(figsize=(18,12))
+    n_in_row=5
+    for i in range(n):
+        plt.subplot(2,n_in_row,i+1)
+        plt.plot(sx[i],si[i])
+        plt.grid()
+    plt.show()
+
+def splitting_array(ini:np.ndarray, n:int)->list:
+    # part_1, part_2, part_3= values[0:parts], values[parts:(parts * 2)], values[(parts * 2):(parts * 3)]
+    parts = int(len(ini) / n)
+    res=[ini[(parts * i):(parts * (i+1))] for i in range(n)]
+    return res
+
+
 
 @njit
 def find_min_max_in_2Dmatr_with_nan(a)->(float, int, int, float, int, int):
@@ -115,9 +172,10 @@ def thetest_logspace():
 
 if __name__ == "__main__":
     # thetest_find_min_max_in_2Dmatr_with_nan()
-    thetest_logspace()
-
-
+    # thetest_logspace()
+    # tst_splitting_array()
+    # tst_real_part()
+    tst_cmodule()
 # test_findmax_arrindex1d()
 # test_add_dat_in_list()
 
