@@ -1,13 +1,24 @@
 # -------------------------------------------------------------------
+# 15/06/2024
+# Miscellaneous general purpose functions
 # Разные функции общего назначения
 #
-# (C) 2020 Ivan Genik, Perm, Russia
+# (C) 2020-2024 Ivan Genik, Perm, Russia
 # Released under GNU Public License (GPL)
 # email igenik@rambler.ru
 # -------------------------------------------------------------------
 
 import math
 import numpy as np
+
+
+def shift_list2(lst, k):
+    # https://leetcode.com/problems/rotate-list/solutions/5227088/simple-python-solution-using-list-beats-95-running-time/
+    ll = len(lst)
+    if k >= ll:
+        k -= (k // ll) * ll
+    # Rotate the list
+    return  lst[ll - k:] + lst[:ll - k]
 
 # https://bobbyhadz.com/blog/how-to-shift-rotate-list-in-python
 def shift_list(lst, index=1):
