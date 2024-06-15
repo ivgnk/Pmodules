@@ -9,6 +9,7 @@
 # -------------------------------------------------------------------
 
 from math import isqrt
+from icecream import ic
 
 def list_of_primes_less_n(n):
     """
@@ -35,8 +36,35 @@ def list_of_primes_less_n(n):
                 else: break
     return [i for i in range(2,n) if a[i]]
 
+def max_of_primes_less_n(n):
+    if n <= 1: return 0
+    isq=isqrt(n)
+    a=[True]*n
+    for i in range(2,isq+1):
+        if a[i]==True:
+            j=0; nn=i**2
+            while j<n:
+                if nn <n:
+                    a[nn]=False
+                    j=j+1
+                    nn=nn+i
+                else: break
+    return max([i for i in range(2,n) if a[i]])
+
+def is_prime(n):
+    """Check if a number is prime."""
+    if n <= 1:
+        return False
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+
 def test_primes():
-    print(list_of_primes_less_n(11))
+    ic(list_of_primes_less_n(11))
+    ic(list_of_primes_less_n(12))
+    ic(max_of_primes_less_n(12))
 
 # the tests
 if __name__ == "__main__":
