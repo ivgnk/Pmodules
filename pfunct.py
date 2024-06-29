@@ -11,6 +11,23 @@
 import math
 import numpy as np
 
+# https://barzunov.ru/2022/12/numbering-system-conversion-in-python/
+def convert_to2(number, base, upper=False):
+    digits = '0123456789abcdefghijklmnopqrstuvwxyz'
+    if base > len(digits): return None
+    result = ''
+    while number > 0:
+        result = digits[number % base] + result
+        number //= base
+    return result.upper() if upper else result
+
+# https://ru.stackoverflow.com/questions/1297746/Перевод-систем-счисления
+def convert_to(n, base):
+    string = ''
+    while n > 0:
+        string += str(n % base)
+        n //= base
+    return string[::-1]
 
 def shift_list2(lst, k):
     # https://leetcode.com/problems/rotate-list/solutions/5227088/simple-python-solution-using-list-beats-95-running-time/
@@ -102,6 +119,9 @@ def print_format_examples():
     f = 2700.567
     print('f=', f)
     print('f = %7.3f' % f)
+
+if __name__ == "__main__":
+    print(convert_to(34, 6))
 
 # print(dat2_in_diap(0.001, 9.999, 0.0, 10.0, isview=True))
 # print(dat2_in_diap(float('nan'), float('nan'), float('nan'), float('nan'), isview=True))
