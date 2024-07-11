@@ -1,8 +1,9 @@
 # -------------------------------------------------------------------
+# Last work at 2024.07.11
 # Модуль pstring, функции для работы со строками
 # The string module, functions for working with strings
 #
-# (C) 2020-2024.07.11 Ivan Genik, Perm, Russia
+# (C) 2020-2024 Ivan Genik, Perm, Russia
 # Released under GNU Public License (GPL)
 # email igenik@rambler.ru
 # ------------------------------
@@ -28,14 +29,26 @@ import inspect
 # https://stackoverflow.com/questions/2970520/string-count-with-overlapping-occurrences
 # because standard str.count return the number of non-overlapping occurrences of substring sub
 # https://docs.python.org/3/library/stdtypes.html#string-methods
-def spec_count(string, sub):
+def spec_count(stri, sub_s):
     count = start = 0
     while True:
-        start = string.find(sub, start) + 1
+        start = stri.find(sub_s, start) + 1
         if start > 0:
             count+=1
         else:
             return count
+
+def spec_find(stri, sub_s):
+    indexpos = []
+    ppos = 0
+    while (True):
+        ppos = stri.find(sub_s, ppos)
+        if ppos > -1:
+            indexpos.append(ppos)
+            ppos = ppos + 1
+        else:
+            break
+    return indexpos
 
 def make_pairs():
     ll=len(a_low)
@@ -144,7 +157,9 @@ if __name__ == "__main__":
     # thetest_remove_letters()
     # the_test_new_split()
     # make_pairs()
-    print(a_low[::-1])
+    # print(a_low[::-1])
+    print(spec_find('abababab', sub_s='aba'))
+
 
 # Проработать строки и регулярные выражения
 # pythonist.ru/s/proverka-yavlyaetsya-li-stroka-palindromom/?utm_source=turbo_turbo
