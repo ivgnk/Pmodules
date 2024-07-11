@@ -2,11 +2,10 @@
 # Модуль pstring, функции для работы со строками
 # The string module, functions for working with strings
 #
-# (C) 2020-2023 Ivan Genik, Perm, Russia
+# (C) 2020-2024.07.11 Ivan Genik, Perm, Russia
 # Released under GNU Public License (GPL)
 # email igenik@rambler.ru
 # ------------------------------
-
 
 vowel_low=['a', 'e', 'i', 'o', 'u']
 vowel_hgh=['A', 'E', 'I', 'O', 'U']
@@ -24,6 +23,19 @@ hl_p=['Aa', 'Bb', 'Cc', 'Dd', 'Ee', 'Ff', 'Gg', 'Hh', 'Ii', 'Jj', 'Kk', 'Ll', 'M
 
 import re
 import inspect
+
+# string count with overlapping occurrences
+# https://stackoverflow.com/questions/2970520/string-count-with-overlapping-occurrences
+# because standard str.count return the number of non-overlapping occurrences of substring sub
+# https://docs.python.org/3/library/stdtypes.html#string-methods
+def spec_count(string, sub):
+    count = start = 0
+    while True:
+        start = string.find(sub, start) + 1
+        if start > 0:
+            count+=1
+        else:
+            return count
 
 def make_pairs():
     ll=len(a_low)
@@ -137,4 +149,3 @@ if __name__ == "__main__":
 # Проработать строки и регулярные выражения
 # pythonist.ru/s/proverka-yavlyaetsya-li-stroka-palindromom/?utm_source=turbo_turbo
 # https://habr.com/ru/post/349860/
-
